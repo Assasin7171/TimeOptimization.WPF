@@ -20,9 +20,12 @@ namespace TimeOptimization.WPF.Views
     /// </summary>
     public partial class MainAppView : Window
     {
+        private readonly MainViewModel viewModel = new MainViewModel();
         public MainAppView()
         {
             InitializeComponent();
+
+            this.DataContext = viewModel;
         }
     }
 }

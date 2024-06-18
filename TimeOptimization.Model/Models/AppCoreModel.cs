@@ -9,21 +9,29 @@ namespace TimeOptimization.Model.Models
 {
     public class AppCoreModel
     {
-        public void GetProcesses()
+        public List<ProcessInfo> GetProcesses()
         {
-            Process[] processes = Process.GetProcesses();
+            List<ProcessInfo> processes = new List<ProcessInfo>(); 
+            var temp = Process.GetProcesses().ToList();
 
-            foreach (Process process in processes)
+            foreach (Process process in temp)
             {
                 try
                 {
-                    Console.WriteLine($"Nazwa: {process.ProcessName}, ID: {process.Id}");
+                    processes.Add(new ProcessInfo
+                    {
+                        Name = process.ProcessName,
+                        Id = process.Id,
+                        Filename = process.MainModule.FileName
+                    });
                 }
-                catch( Exception ex )
+                catch (Exception ex)
                 {
                     Console.WriteLine($"Nie można uzyskać informacji o procesie: {ex.Message}");
                 }
             }
+
+            return processes;
         }
     }
 }
